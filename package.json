@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "sap01": "nodemon src/sap01/sap01.js"
+    "b": "nodemon src/b/b.js",
+    "c": "nodemon src/c/c.js",
+    "d": "nodemon src/d/d.js",
+    "e": "nodemon src/e/e.js",
+    "f": "nodemon src/f/f.js"
   },
   "repository": {
     "type": "git",
@@ -19,5 +23,6 @@
   "homepage": "https://github.com/mathgama/sap-labs-contest#readme",
   "dependencies": {
     "nodemon": "^2.0.15"
-  }
+  },
+  "type": "module"
 }
