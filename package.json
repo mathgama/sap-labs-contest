@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/mathgama/sap-labs-contest#readme",
   "dependencies": {
+    "datastructures-js": "^10.1.1",
     "nodemon": "^2.0.15"
   },
   "type": "module"
