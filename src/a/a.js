@@ -1,5 +1,5 @@
 import { readInputString } from '../utils.js'
-import { MinPriorityQueue } from 'datastructures-js'
+//import { MinPriorityQueue } from 'datastructures-js'
 
 const input = readInputString('./src/a/input.txt')
 
@@ -30,17 +30,18 @@ const getPossibleMoves = (x, y, cost) => {
 }
 
 const getMinimumPath = () => {
-  const q = new MinPriorityQueue()
+  const q = []
   const seen = new Set()
 
-  q.enqueue({ x: fromX, y: fromY, cost: 0 }, 0)
+  q.push({ x: fromX, y: fromY, cost: 0, priority: 0 })
 
-  while(q.size()) {
-    const cur = q.dequeue()
-    const [x, y, cost] = [cur.element.x, cur.element.y, cur.element.cost]
+  while(q.length > 0) {
+    q.sort((a, b) => a.priority - b.priority)
+    const cur = q.shift()
+    const [x, y, cost] = [cur.x, cur.y, cur.cost]
 
     const stateString = x + ',' + y
-
+    
     if (!seen.has(stateString)) {
       seen.add(stateString)
 
@@ -49,7 +50,7 @@ const getMinimumPath = () => {
       else
         getPossibleMoves(x, y, cost).forEach(move => {
           if (!move) return
-          q.enqueue({ x: move.x, y: move.y, cost: move.cost}, move.priority)
+          q.push({ x: move.x, y: move.y, cost: move.cost, priority: move.priority})
         })
     }
   }
