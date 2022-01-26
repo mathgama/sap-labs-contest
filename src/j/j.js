@@ -20,6 +20,9 @@ const processInput = () => {
 
     if (!islandConnections[connection[0]]) islandConnections[connection[0]] = []
     islandConnections[connection[0]].push(connection[1])
+
+    if (!islandConnections[connection[1]]) islandConnections[connection[1]] = []
+    islandConnections[connection[1]].push(connection[0])
   }
 
   const numberOfOperations = input.shift()
@@ -33,20 +36,24 @@ const processInput = () => {
 }
 
 const removeConnection = (attackedFerry, islandConnections) => {
-  const index = islandConnections[attackedFerry[0]].indexOf(attackedFerry[1])
+  let index
+
+  index = islandConnections[attackedFerry[0]].indexOf(attackedFerry[1])
   islandConnections[attackedFerry[0]].splice(index, 1)
+
+  index = islandConnections[attackedFerry[1]].indexOf(attackedFerry[0])
+  islandConnections[attackedFerry[1]].splice(index, 1)
 }
 
-const getProtectedIslands = (islandConnections, current=0) => {
-  let visitted = new Set()
-
+const getProtectedIslands = (islandConnections, current=0, visitted=new Set()) => {
   if (current != 0)
     visitted.add(current)
 
   if (!islandConnections[current]) return visitted
 
   islandConnections[current].forEach(island => {
-    visitted = new Set([...visitted, ...getProtectedIslands(islandConnections, island)])
+    if (!visitted.has(island))
+      visitted = new Set([...visitted, ...getProtectedIslands(islandConnections, island, visitted)])
   })
 
   return visitted
